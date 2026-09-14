@@ -1,11 +1,10 @@
-// Exact Exported Function Names & Pure Calculation Logic[cite: 1]
-
+// Calculate final grade: Quiz 25%, Lab 35%, Exam 40%[cite: 1]
 export function calculateFinalGrade(student) {
-    const { quiz, lab, exam } = student; // Object destructuring requirement[cite: 1]
-    // Returns numeric value (Quiz 25%, Lab 35%, Exam 40%)[cite: 1]
+    const { quiz, lab, exam } = student;
     return (quiz * 0.25) + (lab * 0.35) + (exam * 0.40);
 }
 
+// Academic Status classifier[cite: 1]
 export function getAcademicStatus(grade) {
     if (grade >= 90) {
         return "Excellent";
@@ -18,45 +17,49 @@ export function getAcademicStatus(grade) {
     }
 }
 
+// Case-insensitive search[cite: 1]
 export function searchStudents(students, query) {
-    const lowerQuery = query.toLowerCase().trim();
-    // Case-insensitive filtering using arrow function callback[cite: 1]
-    return students.filter(student => student.name.toLowerCase().includes(lowerQuery));
+    const cleanQuery = (query || "").toLowerCase().trim();
+    return students.filter(student => student.name.toLowerCase().includes(cleanQuery));
 }
 
+// Filter by Block[cite: 1]
 export function filterStudentsByBlock(students, block) {
-    if (block === "All") return students;
+    if (!block || block === "All") return students;
     return students.filter(student => student.block === block);
 }
 
+// Filter by Status[cite: 1]
 export function filterStudentsByStatus(students, status) {
-    if (status === "All") return students;
+    if (!status || status === "All") return students;
     return students.filter(student => {
         const grade = calculateFinalGrade(student);
         return getAcademicStatus(grade) === status;
     });
 }
 
+// Class Average calculator returning numeric value[cite: 1]
 export function calculateClassAverage(students) {
-    if (!students || students.length === 0) return 0; // Pure numeric 0[cite: 1]
-    // Uses reduce() aggregate calculation[cite: 1]
+    if (!students || students.length === 0) return 0;
     const total = students.reduce((sum, student) => sum + calculateFinalGrade(student), 0);
-    return total / students.length; // Returns pure numeric average[cite: 1]
+    return total / students.length;
 }
 
+// Count passing students (grade >= 75)[cite: 1]
 export function countPassingStudents(students) {
     if (!students) return 0;
     return students.filter(student => calculateFinalGrade(student) >= 75).length;
 }
 
+// Top student selector[cite: 1]
 export function getTopStudent(students) {
-    if (!students || students.length === 0) return null; // Returns null for empty arrays[cite: 1]
+    if (!students || students.length === 0) return null;
     return students.reduce((top, current) => {
         return calculateFinalGrade(current) > calculateFinalGrade(top) ? current : top;
     }, students[0]);
 }
 
-// Control Structure Requirement: switch statement range logic[cite: 1]
+// Performance remark switch logic[cite: 1]
 export function getPerformanceRemark(grade) {
     switch (true) {
         case (grade >= 90):

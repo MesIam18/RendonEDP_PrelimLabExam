@@ -80,7 +80,6 @@ h1 {
     gap: 15px;
 }
 
-/* Required Selector for Grader */
 .student-card {
     background: white;
     border: 1px solid #ddd;

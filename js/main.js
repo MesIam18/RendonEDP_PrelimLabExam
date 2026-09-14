@@ -1,3 +1,4 @@
+// Relative module imports targeting the same js/ directory[cite: 1]
 import { students } from './students.js';
 import { 
     searchStudents, 
@@ -10,14 +11,14 @@ import {
     displayMessage 
 } from './display.js';
 
-// Get required control elements by exact ID[cite: 1]
+// DOM Element Selectors[cite: 1]
 const searchInput = document.getElementById('searchInput');
 const blockFilter = document.getElementById('blockFilter');
 const statusFilter = document.getElementById('statusFilter');
 const applyBtn = document.getElementById('applyBtn');
 const resetBtn = document.getElementById('resetBtn');
 
-// Primary function to handle combined search and filter processing[cite: 1]
+// Pipeline function combining search, block filter, and status filter[cite: 1]
 function processAndRender() {
     const query = searchInput.value;
     const selectedBlock = blockFilter.value;
@@ -31,7 +32,7 @@ function processAndRender() {
     displaySummary(result);
 }
 
-// Reset handler restoring default state[cite: 1]
+// Reset function restoring initial state[cite: 1]
 function resetDashboard() {
     searchInput.value = '';
     blockFilter.value = 'All';
@@ -42,19 +43,19 @@ function resetDashboard() {
     displaySummary(students);
 }
 
-// Event Listeners registration using addEventListener()[cite: 1]
+// Bind event listeners using addEventListener()[cite: 1]
 function init() {
     applyBtn.addEventListener('click', processAndRender);
     resetBtn.addEventListener('click', resetDashboard);
     
-    // Live update capabilities[cite: 1]
     searchInput.addEventListener('input', processAndRender);
     blockFilter.addEventListener('change', processAndRender);
     statusFilter.addEventListener('change', processAndRender);
 
-    // Initial Dashboard Display on Page Load[cite: 1]
+    // Initial render on page load[cite: 1]
     displayStudents(students);
     displaySummary(students);
 }
 
+// Execute application
 init();
