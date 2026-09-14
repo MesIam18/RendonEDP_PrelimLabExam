@@ -9,14 +9,16 @@ import {
 
 export function displayStudents(students) {
     const studentList = document.getElementById('studentList');
+    if (!studentList) return;
+
     studentList.innerHTML = '';
 
     if (!students || students.length === 0) {
-        displayMessage("No students found"); // Exact fallback required[cite: 1]
+        displayMessage("No students found");
         return;
     }
 
-    displayMessage(""); // Clear feedback when results exist
+    displayMessage("");
 
     students.forEach(student => {
         const { id, name, block, quiz, lab, exam } = student;
@@ -50,15 +52,17 @@ export function displaySummary(students) {
     const passing = countPassingStudents(students);
     const top = getTopStudent(students);
 
-    displayedCountElem.textContent = students ? students.length : 0;
-    classAvgElem.textContent = avg.toFixed(2);
-    passingCountElem.textContent = passing;
+    if (displayedCountElem) displayedCountElem.textContent = students ? students.length : 0;
+    if (classAvgElem) classAvgElem.textContent = avg.toFixed(2);
+    if (passingCountElem) passingCountElem.textContent = passing;
 
-    if (top) {
-        const topGrade = calculateFinalGrade(top).toFixed(2);
-        topStudentElem.textContent = `${top.name} (${topGrade})`;
-    } else {
-        topStudentElem.textContent = "None";
+    if (topStudentElem) {
+        if (top) {
+            const topGrade = calculateFinalGrade(top).toFixed(2);
+            topStudentElem.textContent = `${top.name} (${topGrade})`;
+        } else {
+            topStudentElem.textContent = "None";
+        }
     }
 }
 
